@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav class="nav-bar">
+    <div class="header">
+
+        
+       <div class="nav-name">
+            <h2>IT Shop</h2>
+        </div>
+        <div class="a-link">
+            <a href="#home">Home</a>
+            <a href="#About">About</a>
+            <a href="#Contact">Contact</a>
+        </div>
+        <div class="cart" id="cart-btn">
+            
+                🛒<span class="cart-conut">0</span>
+            
+        </div>
+    </div>
+    </nav>
+
+    <div class="products-list">
+        <div class="product1">
+            <h3>For Daily Use</h3>
+            
+            <img src="./img.jpg" alt="" width="500px" height="300px">
+            <div class="icon">
+                <div class="info">
+                    <p>Powerful and reliable desktop computer for work, study, and everyday use. Fast performance, quality build, and great value for money.
+                    </p>
+                </div>
+
+                <button class="remove-count" id="fdu-remove">-</button>
+                <span class="price">$2000</span>
+                <button class="add-count" id="fdu-add">+</button>
+            </div>
+            
+        </div>
+
+        
+
+        <div class="product">
+
+            <h3>For Work</h3>
+
+            <img src="./img2.jpg" alt="" width="500px" height="300px">
+            <div class="icon">
+
+                <div class="info">
+                    <p>Reliable desktop computer for everyday tasks, study, office work, and browsing. Smooth performance at an affordable price.
+                    </p>
+                </div>
+                <button class="remove-count" id="fw-remove">-</button>
+                <span class="price">$3000</span>
+                <button class="add-count" id="fw-add">+</button>
+            </div>
+        </div>
+
+        <div class="product3">
+
+            <h3>For Gaming</h3>
+
+            <img src="./img3.jpg" alt="" width="500px" height="300px">
+            <div class="icon">
+                <div class="info">
+                    <p>High-performance gaming desktop built for smooth gameplay, fast performance, and an immersive gaming experience.
+                    </p>
+                </div>
+
+                <button class="remove-count" id="fg-remove">-</button>
+                <span class="price">$2500</span>
+                <button class="add-count" id="fg-add">+</button>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="hide">
+        <div class="cart-popup">
+            <h2>Shopping Cart</h2>
+            <h3 id="cart-total">Total: $0</h3>
+            <div id="cart-items">
+                <p>No item in cart</p>
+            </div>
+            <button id="close-cart">
+                Close 
+            </button>
+        </div>
+    </div>
+
+    <script src="./jquery.min.js"></script>
+    <script>
+        $(document).ready(function(){
+
+            let dailyCount=0;
+            let workCount=0;
+            let gameCount=0;
+            $('#fdu-remove').click(function(){
+                dailyCount--;
+                if(dailyCount<0){
+                    dailyCount= 0;
+                }else{
+                    updateCount();
+                }
+                
+            })
+
+            $('#fdu-add').click(function(){
+                dailyCount++;
+                updateCount();
+            })
+
+            $('#fw-remove').click(function(){
+                workCount--;
+                if(workCount<0){
+                    workCount= 0;
+                }else{
+                    updateCount();
+                }
+                
+            })
+
+            $('#fw-add').click(function(){
+                workCount++;
+                updateCount();
+            })
+
+
+            $('#fg-remove').click(function(){
+                gameCount--;
+                if(gameCount<0){
+                    gameCount= 0;
+                }else{
+                    updateCount();
+                }
+                
+            })
+
+            $('#fg-add').click(function(){
+                gameCount++;
+                updateCount();
+            })
+
+
+            function updateCount(){
+                let totalCount = dailyCount + workCount +gameCount;
+                $('.cart-conut').html(totalCount);
+            }
+
+
+            $('#cart-btn').click(function(){
+
+            $('.hide').css('display','flex');
+
+                let total = 0;
+                let html = '';
+
+                if(dailyCount > 0){
+
+                let price = dailyCount * 2000;
+
+                html += `<div class="cart-item">
+                        <span>For Daily Use x ${dailyCount}</span>
+                        <span>$${price}</span>
+                        </div>`;
+
+                total += price;
+                }
+
+
+                if(workCount > 0){
+
+                let price = workCount * 3000;
+
+                html += `<div class="cart-item">
+                <span>For Work x ${workCount}</span>
+                <span>$${price}</span>
+                </div>`;
+
+                total += price;
+                }
+
+
+                if(gameCount > 0){
+
+                let price = gameCount * 2500;
+
+                html += `<div class="cart-item">
+                <span>For Gaming x ${gameCount}</span>
+                <span>$${price}</span>
+                </div>`;
+
+                total += price;
+                }
+
+
+                if(html == ''){
+                html = '<p>Your cart is empty.</p>';
+                }
+
+                $('#cart-items').html(html);
+                $('#cart-total').html(`Total: $${total}`);
+                });
+
+                $('#close-cart').click(function(){
+                $('.hide').hide();
+                })
+
+        });
+    </script>
+</body>
+</html>
